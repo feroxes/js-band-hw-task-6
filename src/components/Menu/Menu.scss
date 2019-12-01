@@ -1,0 +1,19 @@
+@import "../../assets/scss/utils/vars";
+@import "../../assets/scss/utils/mixins";
+.menu-wrapper {
+  .menu {
+    padding: 0 10%;
+    .input-wrapper {
+      width: 35%;
+      margin: 0 10px;
+    }
+    .select-wrapper {
+      width: 20%;
+      margin: 0 10px;
+      position: relative;
+    }
+    .create-btn:hover {
+      background-color: $border-base;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Menu from '../../components/Menu';
 
 class TodoList extends Component {
   constructor(props) {
@@ -7,7 +8,11 @@ class TodoList extends Component {
   }
 
   render() {
-    return <div> todos </div>;
+    return (
+      <>
+        <Menu />
+      </>
+    );
   }
 }
 
