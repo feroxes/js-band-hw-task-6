@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import BaseInput from '../ui/BaseInput';
 import BaseSelect from '../ui/BaseSelect';
+import BaseButton from '../ui/BaseButton';
+
 import './Menu.scss';
 
 class Menu extends Component {
@@ -20,6 +22,10 @@ class Menu extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleClick = e => {
+    console.log('-----> e<-----', e);
   };
 
   render() {
@@ -48,9 +54,7 @@ class Menu extends Component {
               optionList={['all', 'high', 'normal', 'low']}
             />
           </div>
-          <button type="button" id="open-modal-btn" className="create-btn base-btn">
-            Create
-          </button>
+          <BaseButton text="Create" name="create-btn" handleClick={this.handleClick} />
         </div>
       </section>
     );
