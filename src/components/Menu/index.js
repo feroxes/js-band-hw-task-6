@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BaseInput from '../ui/BaseInput';
+import BaseSelect from '../ui/BaseSelect';
 import './Menu.scss';
 
 class Menu extends Component {
@@ -8,10 +9,14 @@ class Menu extends Component {
     this.state = {
       // eslint-disable-next-line react/no-unused-state
       search: '',
+      // eslint-disable-next-line react/no-unused-state
+      isDone: '',
+      // eslint-disable-next-line react/no-unused-state
+      priority: '',
     };
   }
 
-  handleInput = (value, name) => {
+  handleChanges = (value, name) => {
     this.setState({
       [name]: value,
     });
@@ -23,29 +28,25 @@ class Menu extends Component {
         <div className="d-flex justify-content-center align-items-center w-100 menu">
           <div className="input-wrapper position-relative">
             <BaseInput
+              id="search-input"
               name="search"
               placeholder="Search by title"
-              handlerFromParent={this.handleInput}
+              handlerFromParent={this.handleChanges}
             />
           </div>
           <div className="select-wrapper">
-            <select name="isDone" id="filter-status" className="base-select">
-              <option value="all" selected>
-                All
-              </option>
-              <option value="open">Open</option>
-              <option value="done">Done</option>
-            </select>
+            <BaseSelect
+              name="isDone"
+              handlerFromParent={this.handleChanges}
+              optionList={['all', 'open', 'done']}
+            />
           </div>
           <div className="select-wrapper">
-            <select name="priority" id="filter-priority" className="base-select">
-              <option value="all" selected>
-                All
-              </option>
-              <option value="high">High</option>
-              <option value="normal">Normal</option>
-              <option value="low">Low</option>
-            </select>
+            <BaseSelect
+              name="priority"
+              handlerFromParent={this.handleChanges}
+              optionList={['all', 'high', 'normal', 'low']}
+            />
           </div>
           <button type="button" id="open-modal-btn" className="create-btn base-btn">
             Create

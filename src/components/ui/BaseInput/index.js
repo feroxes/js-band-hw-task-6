@@ -19,15 +19,15 @@ class BaseInput extends Component {
   };
 
   render() {
-    const { label, placeholder, name } = this.props;
+    const { label, placeholder, name, id, type } = this.props;
     const { inputField } = this.state;
     return (
       <>
-        <label htmlFor="base-input" className="w-100">
+        <label htmlFor={id} className="w-100">
           {label || ''}
           <input
-            type="text"
-            id="base-input"
+            type={type}
+            id={id}
             className="form-control"
             name={name}
             value={inputField}
@@ -42,14 +42,16 @@ class BaseInput extends Component {
 
 BaseInput.propTypes = {
   label: PropTypes.string,
-  name: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  id: PropTypes.string.isRequired,
   handlerFromParent: PropTypes.func.isRequired,
 };
 
 BaseInput.defaultProps = {
   label: null,
-  name: null,
+  type: 'text',
   placeholder: null,
 };
 
