@@ -10,12 +10,12 @@ class BaseTextArea extends Component {
   }
 
   handleChange = e => {
-    const { inputField } = this.state;
     const { handlerFromParent } = this.props;
+    const { value, name } = e.target;
     this.setState({
-      inputField: e.target.value,
+      inputField: value,
     });
-    handlerFromParent(inputField, e.target.name);
+    handlerFromParent(value, name);
   };
 
   render() {

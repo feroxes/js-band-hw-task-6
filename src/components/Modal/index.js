@@ -10,19 +10,22 @@ import BaseButton from '../ui/BaseButton';
 class Modal extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      title: '',
+      description: '',
+      priority: '',
+      isDone: false,
+    };
   }
 
-  handleChanges = e => {
-    console.log('----->e<-----', e);
-  };
-
-  handleClick = e => {
-    console.log('----->e<-----', e);
+  handleChanges = (value, name) => {
+    this.setState({
+      [name]: value,
+    });
   };
 
   render() {
-    const { title, isModalShown, toggleModal } = this.props;
+    const { title, isModalShown, toggleModal, addTask } = this.props;
     return (
       <div
         className={`modal-wrapper vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center ${
@@ -63,7 +66,7 @@ class Modal extends Component {
               <BaseButton
                 text="Save"
                 name="save-btn"
-                handleClick={this.handleClick}
+                handleClick={() => addTask(this.state)}
                 className="save-btn btn btn-light w-50 bg-success"
               />
               <BaseButton
@@ -83,6 +86,7 @@ class Modal extends Component {
 Modal.propTypes = {
   isModalShown: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  addTask: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 

@@ -10,12 +10,14 @@ class BaseInput extends Component {
   }
 
   handleChange = e => {
-    const { inputField } = this.state;
     const { handlerFromParent } = this.props;
-    this.setState({
-      inputField: e.target.value,
-    });
-    handlerFromParent(inputField, e.target.name);
+    const { value, name } = e.target;
+    this.setState(
+      {
+        inputField: value,
+      },
+      () => handlerFromParent(value, name)
+    );
   };
 
   render() {
