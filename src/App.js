@@ -7,7 +7,7 @@ import NotFound from './containers/NotFound';
 
 function App() {
   return (
-    <div className="app">
+    <div className="min-vh-100 position-relative pb-5">
       <Header>To do list APP</Header>
       <Switch>
         <Route exact path="/">
