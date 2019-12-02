@@ -35,7 +35,35 @@
 |   |    |    |    └── vars.scss
 |   |    |    └── main.css
 |   ├── components
+|   |    ├── Footer
+|   |    |    ├── index.js
+|   |    ├── Header
+|   |    |    ├── Header.scss
+|   |    |    ├── index.js
+|   |    ├── Menu
+|   |    |    ├── index.js
+|   |    ├── Modal
+|   |    |    ├── Modal.scss
+|   |    |    ├── index.js
+|   |    ├── TasksList
+|   |    |    ├── Task
+|   |    |    |    ├── Task.scss
+|   |    |    |    ├── index.js
+|   |    |    ├── index.js
+|   |    ├── ui
+|   |    |    ├── BaseButton
+|   |    |    |    ├── index.js
+|   |    |    ├── BaseInput
+|   |    |    |    ├── index.js
+|   |    |    ├── BaseSelect
+|   |    |    |    ├── index.js
+|   |    |    ├── BaseTextArea
+|   |    |    |    ├── index.js
 |   ├── containers
+|   |    ├── NotFound
+|   |    |    ├── index.js
+|   |    ├── TodoList
+|   |    |    ├── index.js
 |   ├── App.js
 |   └── index.js
 ```
