@@ -9,7 +9,7 @@ branches:
     - master
 
 script:
-  - npm run eslint
+  - npm run lint
   - npm run build
 
 deploy:
