@@ -21,14 +21,10 @@ class Modal extends Component {
 
   componentDidMount() {
     const { editableTask } = this.props;
-    this.setState({ ...editableTask });
+    if (editableTask) this.setState({ ...editableTask });
   }
 
-  handleChanges = (name, value) => {
-    this.setState({
-      [name]: value,
-    });
-  };
+  handleChanges = (name, value) => this.setState({ [name]: value });
 
   clearState = () => {
     const initialState = {
@@ -56,7 +52,7 @@ class Modal extends Component {
     return (
       <div className="modal-wrapper d-flex vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center">
         <form className="base-modal w-25 rounded p-3">
-          <h2 className="modal-title font-weight-bold">{modalTitle}</h2>
+          <h2 className="modal-title font-weight-bold text-center">{modalTitle}</h2>
           <div className="add-item-form">
             <div className="my-3">
               <BaseInput

@@ -5,8 +5,6 @@ import BaseInput from '../ui/BaseInput';
 import BaseSelect from '../ui/BaseSelect';
 import BaseButton from '../ui/BaseButton';
 
-import './Menu.scss';
-
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -34,9 +32,9 @@ class Menu extends Component {
     const { toggleModal } = this.props;
     const { search, isDone, priority } = this.state;
     return (
-      <section className="menu-wrapper">
-        <div className="d-flex justify-content-center align-items-center w-100 menu">
-          <div className="input-wrapper position-relative">
+      <section>
+        <div className="d-flex justify-content-center align-items-center w-100">
+          <div className="input-wrapper w-25 mx-1 position-relative">
             <BaseInput
               id="search-input"
               name="search"
@@ -45,7 +43,7 @@ class Menu extends Component {
               handleChanges={this.handleChanges}
             />
           </div>
-          <div className="select-wrapper">
+          <div className="w-25 mx-1">
             <BaseSelect
               name="isDone"
               value={isDone}
@@ -53,7 +51,7 @@ class Menu extends Component {
               optionList={['all', 'open', 'done']}
             />
           </div>
-          <div className="select-wrapper">
+          <div className="w-25 mx-1">
             <BaseSelect
               name="priority"
               value={priority}
@@ -65,7 +63,7 @@ class Menu extends Component {
             text="Create"
             name="create-btn"
             handleClick={toggleModal}
-            className="btn btn-light"
+            className="btn btn-light mx-1"
           />
         </div>
       </section>

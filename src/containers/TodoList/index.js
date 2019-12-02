@@ -8,15 +8,7 @@ class TodoList extends Component {
     super(props);
     this.state = {
       isModalShown: false,
-      tasksList: [
-        {
-          title: 'test',
-          description: 'test',
-          priority: 'normal',
-          id: Number(new Date()),
-          isDone: false,
-        },
-      ],
+      tasksList: [],
       filteredTasksList: [],
       useFilteredList: false,
       editableTask: null,
