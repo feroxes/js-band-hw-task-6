@@ -14,34 +14,58 @@ class Modal extends Component {
       title: '',
       description: '',
       priority: '',
+      id: Number(new Date()),
       isDone: false,
     };
   }
 
-  handleChanges = (value, name) => {
+  componentDidMount() {
+    const { editableTask } = this.props;
+    this.setState({ ...editableTask });
+  }
+
+  handleChanges = (name, value) => {
     this.setState({
       [name]: value,
     });
   };
 
+  clearState = () => {
+    const initialState = {
+      title: '',
+      description: '',
+      priority: '',
+      id: Number(new Date()),
+      isDone: false,
+    };
+
+    this.setState({ ...initialState });
+  };
+
+  handleOnSaveButtonClick = () => {
+    const { editableTask, addTask, updateTask, toggleModal } = this.props;
+    if (editableTask) updateTask(this.state);
+    else addTask(this.state);
+    this.clearState();
+    toggleModal();
+  };
+
   render() {
-    const { title, isModalShown, toggleModal, addTask } = this.props;
+    const { modalTitle, toggleModal } = this.props;
+    const { title, description, priority } = this.state;
     return (
-      <div
-        className={`modal-wrapper vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center ${
-          isModalShown ? 'd-flex' : 'd-none'
-        }`}
-      >
+      <div className="modal-wrapper d-flex vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center">
         <form className="base-modal w-25 rounded p-3">
-          <h2 className="modal-title font-weight-bold">{title}</h2>
+          <h2 className="modal-title font-weight-bold">{modalTitle}</h2>
           <div className="add-item-form">
             <div className="my-3">
               <BaseInput
                 label="Title:"
                 placeholder="Title"
+                value={title}
                 name="title"
                 id="title"
-                handlerFromParent={this.handleChanges}
+                handleChanges={this.handleChanges}
               />
             </div>
             <div className="my-3">
@@ -49,24 +73,25 @@ class Modal extends Component {
                 id="description-area"
                 label="Description:"
                 name="description"
+                value={description}
                 placeholder="Enter description..."
-                handlerFromParent={this.handleChanges}
+                handleChanges={this.handleChanges}
               />
             </div>
             <div className="my-3">
               <BaseSelect
                 label="Priority:"
                 name="priority"
-                disabledFirstElement
+                value={priority}
                 optionList={['Select an option', 'high', 'normal', 'low']}
-                handlerFromParent={this.handleChanges}
+                handleChanges={this.handleChanges}
               />
             </div>
             <div className="buttons-wrapper w-100 d-flex justify-content-between align-items-center my-2">
               <BaseButton
                 text="Save"
                 name="save-btn"
-                handleClick={() => addTask(this.state)}
+                handleClick={this.handleOnSaveButtonClick}
                 className="save-btn btn btn-light w-50 bg-success"
               />
               <BaseButton
@@ -84,10 +109,15 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  isModalShown: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  editableTask: PropTypes.instanceOf(Object),
+};
+
+Modal.defaultProps = {
+  editableTask: null,
 };
 
 export default Modal;

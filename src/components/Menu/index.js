@@ -11,16 +11,13 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
       search: '',
-      // eslint-disable-next-line react/no-unused-state
       isDone: '',
-      // eslint-disable-next-line react/no-unused-state
       priority: '',
     };
   }
 
-  handleChanges = (value, name) => {
+  handleChanges = (name, value) => {
     this.setState({
       [name]: value,
     });
@@ -28,6 +25,7 @@ class Menu extends Component {
 
   render() {
     const { toggleModal } = this.props;
+    const { search, isDone, priority } = this.state;
     return (
       <section className="menu-wrapper">
         <div className="d-flex justify-content-center align-items-center w-100 menu">
@@ -35,21 +33,24 @@ class Menu extends Component {
             <BaseInput
               id="search-input"
               name="search"
+              value={search}
               placeholder="Search by title"
-              handlerFromParent={this.handleChanges}
+              handleChanges={this.handleChanges}
             />
           </div>
           <div className="select-wrapper">
             <BaseSelect
               name="isDone"
-              handlerFromParent={this.handleChanges}
+              value={isDone}
+              handleChanges={this.handleChanges}
               optionList={['all', 'open', 'done']}
             />
           </div>
           <div className="select-wrapper">
             <BaseSelect
               name="priority"
-              handlerFromParent={this.handleChanges}
+              value={priority}
+              handleChanges={this.handleChanges}
               optionList={['all', 'high', 'normal', 'low']}
             />
           </div>

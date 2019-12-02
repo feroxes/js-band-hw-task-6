@@ -20,9 +20,15 @@ class Task extends Component {
     });
   };
 
+  editTask = task => {
+    const { setEditableTask, toggleModal } = this.props;
+    setEditableTask(task);
+    toggleModal();
+    this.toggleControls();
+  };
+
   render() {
-    // eslint-disable-next-line no-unused-vars
-    const { task, index } = this.props;
+    const { task, index, toggleTaskStatus, deleteTask } = this.props;
     const { title, description, priority, isDone } = task;
     const { isControlsShown } = this.state;
     return (
@@ -41,15 +47,15 @@ class Task extends Component {
             name="controls-btn"
             handleClick={this.toggleControls}
           />
-          <ul
-            className={`controls-list position-absolute py-2 px-3 bg-light border border-dark rounded ${
-              isControlsShown ? 'd-block' : 'd-none'
+          <div
+            className={`flex-column controls-list position-absolute py-2 px-3 bg-light border border-dark rounded ${
+              isControlsShown ? 'd-flex' : 'd-none'
             }`}
           >
-            <li>Done</li>
-            <li>Edit</li>
-            <li>Delete</li>
-          </ul>
+            <BaseButton text="Done" name="done-btn" handleClick={() => toggleTaskStatus(index)} />
+            <BaseButton text="Edit" name="edit-btn" handleClick={() => this.editTask(task)} />
+            <BaseButton text="Delete" name="delete-btn" handleClick={() => deleteTask(index)} />
+          </div>
         </div>
       </div>
     );
@@ -59,5 +65,9 @@ class Task extends Component {
 Task.propTypes = {
   task: PropTypes.instanceOf(Object).isRequired,
   index: PropTypes.number.isRequired,
+  toggleTaskStatus: PropTypes.func.isRequired,
+  setEditableTask: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
 };
 export default Task;
