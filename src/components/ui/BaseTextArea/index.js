@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class BaseInput extends Component {
+class BaseTextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,14 +19,13 @@ class BaseInput extends Component {
   };
 
   render() {
-    const { label, placeholder, name, id, type } = this.props;
+    const { label, placeholder, name, id } = this.props;
     const { inputField } = this.state;
     return (
       <>
         <label htmlFor={id} className="w-100 font-weight-bold">
           {label || ''}
-          <input
-            type={type}
+          <textarea
             id={id}
             className="form-control"
             name={name}
@@ -40,19 +39,17 @@ class BaseInput extends Component {
   }
 }
 
-BaseInput.propTypes = {
+BaseTextArea.propTypes = {
   label: PropTypes.string,
-  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   id: PropTypes.string.isRequired,
   handlerFromParent: PropTypes.func.isRequired,
 };
 
-BaseInput.defaultProps = {
+BaseTextArea.defaultProps = {
   label: null,
-  type: 'text',
   placeholder: null,
 };
 
-export default BaseInput;
+export default BaseTextArea;
