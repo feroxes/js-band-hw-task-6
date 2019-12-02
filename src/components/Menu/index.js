@@ -21,6 +21,13 @@ class Menu extends Component {
     this.setState({
       [name]: value,
     });
+    this.filterTasks(name, value);
+  };
+
+  filterTasks = (name, value) => {
+    const { filterTasksList } = this.props;
+    if (name === 'isDone' && value !== 'all') filterTasksList(name, value === 'done');
+    else filterTasksList(name, value);
   };
 
   render() {
@@ -68,6 +75,7 @@ class Menu extends Component {
 
 Menu.propTypes = {
   toggleModal: PropTypes.func.isRequired,
+  filterTasksList: PropTypes.func.isRequired,
 };
 
 export default Menu;
