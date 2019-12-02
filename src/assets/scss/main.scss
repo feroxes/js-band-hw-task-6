@@ -31,7 +31,7 @@ body {
   background-color: rgb(43, 43, 43);
 }
 
-*, *:before, *:after { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: border-box; outline: none !important}
 
 h1, h2, h3, h4, h5, h6 { margin: 0; }
 
@@ -42,7 +42,9 @@ ul, li {
   padding: 0;
   list-style-type: none;
 }
-
+code {
+  font-size: 12px;
+}
 section, .section {
   position: relative;
   padding: 40px 0;
