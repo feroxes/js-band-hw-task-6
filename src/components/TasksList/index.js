@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
 
-function TasksList({ tasksList }) {
+function TasksList({ tasksList, toggleTaskStatus, deleteTask }) {
   return (
     <div className="d-flex justify-content-center flex-wrap">
       {tasksList.map((task, index) => {
-        // eslint-disable-next-line react/no-array-index-key
-        return <Task task={task} index={index} key={index} />;
+        return (
+          <Task
+            task={task}
+            index={index}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            toggleTaskStatus={toggleTaskStatus}
+            deleteTask={deleteTask}
+          />
+        );
       })}
     </div>
   );
@@ -15,5 +23,7 @@ function TasksList({ tasksList }) {
 
 TasksList.propTypes = {
   tasksList: PropTypes.instanceOf(Array).isRequired,
+  toggleTaskStatus: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
 };
 export default TasksList;

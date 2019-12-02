@@ -20,10 +20,26 @@ class TodoList extends Component {
     });
   };
 
+  updateTasksList = tasksList => {
+    this.setState({ tasksList });
+  };
+
   addTask = task => {
     const { tasksList } = this.state;
     tasksList.push(task);
-    this.setState({ tasksList });
+    this.updateTasksList(tasksList);
+  };
+
+  toggleTaskStatus = index => {
+    const { tasksList } = this.state;
+    tasksList[index].isDone = !tasksList[index].isDone;
+    this.updateTasksList(tasksList);
+  };
+
+  deleteTask = index => {
+    const { tasksList } = this.state;
+    tasksList.splice(index, 1);
+    this.updateTasksList(tasksList);
   };
 
   render() {
@@ -31,7 +47,11 @@ class TodoList extends Component {
     return (
       <>
         <Menu toggleModal={this.toggleModal} />
-        <TasksList tasksList={tasksList} />
+        <TasksList
+          tasksList={tasksList}
+          toggleTaskStatus={this.toggleTaskStatus}
+          deleteTask={this.deleteTask}
+        />
         <Modal
           isModalShown={isModalShown}
           title="Create new item"
