@@ -17,12 +17,15 @@ class BaseSelect extends Component {
   }
 
   handleChange = e => {
-    const { select } = this.state;
     const { handlerFromParent } = this.props;
-    this.setState({
-      select: e.target.value,
-    });
-    handlerFromParent(select, e.target.name);
+    const { value, name } = e.target;
+
+    this.setState(
+      {
+        select: value,
+      },
+      () => handlerFromParent(value, name)
+    );
   };
 
   render() {
