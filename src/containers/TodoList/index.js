@@ -54,7 +54,7 @@ class TodoList extends Component {
         />
         <Modal
           isModalShown={isModalShown}
-          title="Create new item"
+          modalTitle="Create new item"
           toggleModal={this.toggleModal}
           addTask={this.addTask}
         />
