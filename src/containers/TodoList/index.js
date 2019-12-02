@@ -17,6 +17,8 @@ class TodoList extends Component {
           isDone: false,
         },
       ],
+      filteredTasksList: [],
+      useFilteredList: false,
       editableTask: null,
     };
   }
@@ -30,6 +32,8 @@ class TodoList extends Component {
   };
 
   updateTasksList = tasksList => this.setState({ tasksList });
+
+  updateFilteredTasksList = filteredTasksList => this.setState({ filteredTasksList });
 
   addTask = task => {
     const { tasksList } = this.state;
@@ -60,13 +64,29 @@ class TodoList extends Component {
 
   setEditableTask = (editableTask = null) => this.setState({ editableTask });
 
+  filterTasksList = (filterName, filterValue) => {
+    if (filterValue === 'all') this.setState({ useFilteredList: false });
+    else {
+      const { tasksList } = this.state;
+      const result = tasksList.filter(task => task[filterName] === filterValue);
+      this.updateFilteredTasksList(result);
+      this.setState({ useFilteredList: true });
+    }
+  };
+
   render() {
-    const { isModalShown, tasksList, editableTask } = this.state;
+    const {
+      isModalShown,
+      tasksList,
+      filteredTasksList,
+      useFilteredList,
+      editableTask,
+    } = this.state;
     return (
       <>
-        <Menu toggleModal={this.toggleModal} />
+        <Menu toggleModal={this.toggleModal} filterTasksList={this.filterTasksList} />
         <TasksList
-          tasksList={tasksList}
+          tasksList={useFilteredList ? filteredTasksList : tasksList}
           toggleTaskStatus={this.toggleTaskStatus}
           setEditableTask={this.setEditableTask}
           toggleModal={this.toggleModal}
