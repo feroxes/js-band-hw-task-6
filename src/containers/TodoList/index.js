@@ -8,7 +8,16 @@ class TodoList extends Component {
     super(props);
     this.state = {
       isModalShown: false,
-      tasksList: [{ title: 'test', description: 'test', priority: 'test', isDone: false }],
+      tasksList: [
+        {
+          title: 'test',
+          description: 'test',
+          priority: 'normal',
+          id: Number(new Date()),
+          isDone: false,
+        },
+      ],
+      editableTask: null,
     };
   }
 
@@ -20,9 +29,7 @@ class TodoList extends Component {
     });
   };
 
-  updateTasksList = tasksList => {
-    this.setState({ tasksList });
-  };
+  updateTasksList = tasksList => this.setState({ tasksList });
 
   addTask = task => {
     const { tasksList } = this.state;
@@ -42,22 +49,39 @@ class TodoList extends Component {
     this.updateTasksList(tasksList);
   };
 
+  updateTask = task => {
+    const { tasksList } = this.state;
+    tasksList.forEach((item, index) => {
+      if (item.id === task.id) tasksList[index] = task;
+    });
+    this.updateTasksList(tasksList);
+    this.setEditableTask();
+  };
+
+  setEditableTask = (editableTask = null) => this.setState({ editableTask });
+
   render() {
-    const { isModalShown, tasksList } = this.state;
+    const { isModalShown, tasksList, editableTask } = this.state;
     return (
       <>
         <Menu toggleModal={this.toggleModal} />
         <TasksList
           tasksList={tasksList}
           toggleTaskStatus={this.toggleTaskStatus}
+          setEditableTask={this.setEditableTask}
+          toggleModal={this.toggleModal}
           deleteTask={this.deleteTask}
         />
-        <Modal
-          isModalShown={isModalShown}
-          modalTitle="Create new item"
-          toggleModal={this.toggleModal}
-          addTask={this.addTask}
-        />
+        {isModalShown && (
+          <Modal
+            modalTitle="Create new item"
+            isModalShown={isModalShown}
+            editableTask={editableTask}
+            updateTask={this.updateTask}
+            toggleModal={this.toggleModal}
+            addTask={this.addTask}
+          />
+        )}
       </>
     );
   }

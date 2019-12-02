@@ -20,8 +20,14 @@ class Task extends Component {
     });
   };
 
+  editTask = task => {
+    const { setEditableTask, toggleModal } = this.props;
+    setEditableTask(task);
+    toggleModal();
+    this.toggleControls();
+  };
+
   render() {
-    // eslint-disable-next-line no-unused-vars
     const { task, index, toggleTaskStatus, deleteTask } = this.props;
     const { title, description, priority, isDone } = task;
     const { isControlsShown } = this.state;
@@ -47,7 +53,7 @@ class Task extends Component {
             }`}
           >
             <BaseButton text="Done" name="done-btn" handleClick={() => toggleTaskStatus(index)} />
-            <BaseButton text="Edit" name="edit-btn" handleClick={() => {}} />
+            <BaseButton text="Edit" name="edit-btn" handleClick={() => this.editTask(task)} />
             <BaseButton text="Delete" name="delete-btn" handleClick={() => deleteTask(index)} />
           </div>
         </div>
@@ -60,6 +66,8 @@ Task.propTypes = {
   task: PropTypes.instanceOf(Object).isRequired,
   index: PropTypes.number.isRequired,
   toggleTaskStatus: PropTypes.func.isRequired,
+  setEditableTask: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
 };
 export default Task;

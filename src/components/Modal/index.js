@@ -14,8 +14,14 @@ class Modal extends Component {
       title: '',
       description: '',
       priority: '',
+      id: Number(new Date()),
       isDone: false,
     };
+  }
+
+  componentDidMount() {
+    const { editableTask } = this.props;
+    this.setState({ ...editableTask });
   }
 
   handleChanges = (name, value) => {
@@ -29,28 +35,26 @@ class Modal extends Component {
       title: '',
       description: '',
       priority: '',
+      id: Number(new Date()),
       isDone: false,
     };
 
-    this.setState({ initialState });
+    this.setState({ ...initialState });
   };
 
-  createTask = () => {
-    const { addTask, toggleModal } = this.props;
-    addTask(this.state);
+  handleOnSaveButtonClick = () => {
+    const { editableTask, addTask, updateTask, toggleModal } = this.props;
+    if (editableTask) updateTask(this.state);
+    else addTask(this.state);
     this.clearState();
     toggleModal();
   };
 
   render() {
-    const { modalTitle, isModalShown, toggleModal } = this.props;
+    const { modalTitle, toggleModal } = this.props;
     const { title, description, priority } = this.state;
     return (
-      <div
-        className={`modal-wrapper vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center ${
-          isModalShown ? 'd-flex' : 'd-none'
-        }`}
-      >
+      <div className="modal-wrapper d-flex vw-100 vh-100 position-fixed overflow-auto justify-content-center align-items-center">
         <form className="base-modal w-25 rounded p-3">
           <h2 className="modal-title font-weight-bold">{modalTitle}</h2>
           <div className="add-item-form">
@@ -87,7 +91,7 @@ class Modal extends Component {
               <BaseButton
                 text="Save"
                 name="save-btn"
-                handleClick={this.createTask}
+                handleClick={this.handleOnSaveButtonClick}
                 className="save-btn btn btn-light w-50 bg-success"
               />
               <BaseButton
@@ -105,10 +109,15 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  isModalShown: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
   modalTitle: PropTypes.string.isRequired,
+  editableTask: PropTypes.instanceOf(Object),
+};
+
+Modal.defaultProps = {
+  editableTask: null,
 };
 
 export default Modal;
