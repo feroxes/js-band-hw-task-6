@@ -9,6 +9,13 @@ class BaseSelect extends Component {
     };
   }
 
+  componentDidMount() {
+    const { optionList } = this.props;
+    this.setState({
+      select: optionList[0],
+    });
+  }
+
   handleChange = e => {
     const { select } = this.state;
     const { handlerFromParent } = this.props;
@@ -19,13 +26,20 @@ class BaseSelect extends Component {
   };
 
   render() {
-    const { name, optionList } = this.props;
+    const { name, optionList, label, disabledFirstElement } = this.props;
+    const { select } = this.state;
     return (
       <>
-        <select name={name} onChange={this.handleChange} className="custom-select text-capitalize">
-          {optionList.map(item => {
+        <span className="font-weight-bold ">{label}</span>
+        <select
+          name={name}
+          onChange={this.handleChange}
+          className="custom-select text-capitalize"
+          value={select}
+        >
+          {optionList.map((item, index) => {
             return (
-              <option key={item} value={item}>
+              <option disabled={disabledFirstElement && !index} key={item} value={item}>
                 {item}
               </option>
             );
@@ -38,8 +52,15 @@ class BaseSelect extends Component {
 
 BaseSelect.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  disabledFirstElement: PropTypes.bool,
   optionList: PropTypes.instanceOf(Array).isRequired,
   handlerFromParent: PropTypes.func.isRequired,
+};
+
+BaseSelect.defaultProps = {
+  label: null,
+  disabledFirstElement: false,
 };
 
 export default BaseSelect;
