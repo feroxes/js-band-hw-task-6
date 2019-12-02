@@ -64,14 +64,25 @@ class TodoList extends Component {
 
   setEditableTask = (editableTask = null) => this.setState({ editableTask });
 
-  filterTasksList = (filterName, filterValue) => {
-    if (filterValue === 'all') this.setState({ useFilteredList: false });
+  filterTasksList = (filterName, value) => {
+    if (value === 'all' || (filterName === 'search' && !value.length))
+      this.setState({ useFilteredList: false });
     else {
-      const { tasksList } = this.state;
-      const result = tasksList.filter(task => task[filterName] === filterValue);
+      const result =
+        filterName === 'search' ? this.searchTask(value) : this.filterTasks(filterName, value);
       this.updateFilteredTasksList(result);
       this.setState({ useFilteredList: true });
     }
+  };
+
+  filterTasks = (filterName, value) => {
+    const { tasksList } = this.state;
+    return tasksList.filter(task => task[filterName] === value);
+  };
+
+  searchTask = searchValue => {
+    const { tasksList } = this.state;
+    return tasksList.filter(task => task.title.includes(searchValue));
   };
 
   render() {
